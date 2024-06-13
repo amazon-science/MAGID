@@ -1,0 +1,4 @@
+datasets:
+  PhotoChat:
+    path_conversation: /fsx/users/haboutal/home/datasets/photochat/multimodalchat/photochat/train/merged.json
+    path_images: merged

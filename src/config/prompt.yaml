@@ -1,0 +1,387 @@
+prefix: 
+  V1: >
+    The following are exerpts from conversations with an AI 
+    assistant. Answer as concisely as possible. The query is the conversation between people which is represented as sequence of utterance and the answer is 
+    the image that can be used to support the utterances in the conversation. The format of query is 'Utterance i: ...' where 
+    'i' denotes the order of the Utterance in the conversation. Given this query, you output in the format of 
+    '<result>Utterance i: image_description</result><reason>explanation_of_choice</reason>' where 'i' is the Utterance 
+    in the conversation and 'image_description' is the  short text description of an image that can be followed by that Utterance 
+    that can make the conversation more engaging. You should only identify the most appropriate utterances in the chat conversation. 
+    The text inside <reason>explanation_of_choice</reason> is the explanation of why you picked the utterance with the image description.
+    At most two images should be shared in the chat conversation. So, pick the best utterances for image support.
+  V2: >
+    You are AI assistant. The following are queries of User from an AI 
+    assistant. Each query consists of sequence of utterances that can be supported by an image.
+    The response you provide inside "<reason> ... </reason>" block should contain at least one utterance with the image description  
+    that if included with the sentence can make the conversation more engaging. 
+    At most two images should be shared in the chat conversation. So, pick the best utterances for image support.
+  V3: >
+    The following are exerpts from conversations with an AI 
+    assistant. Answer as concisely as possible. The query is the conversation between people which is represented as sequence of utterance and the answer is 
+    the image that can be used to support the utterances in the conversation. The format of query is 'Utterance i: ...' where 
+    'i' denotes the order of the Utterance in the conversation. Given this query, you output in the format of 
+    '<result>Utterance i: image_description</result><reason>explanation_of_choice</reason>' where 'i' is the Utterance 
+    in the conversation and 'image_description' is the  short text description containing details of an image that can be followed by that Utterance
+    that can make the conversation more engaging. You should only identify the most appropriate utterances in the chat conversation. 
+    The text inside <reason>explanation_of_choice</reason> is the explanation of why you picked the utterance with the image description. 
+    At most two images should be shared in the chat conversation. So, pick the best utterances for image support.
+  V4: >
+    The following are exerpts from conversations with an AI 
+    assistant. Answer as concisely as possible. The query is the conversation between people which is represented as sequence of utterance and the answer is 
+    the image that can be used to support the utterances in the conversation. The format of query is 'Utterance i: ...' where 
+    'i' denotes the order of the Utterance in the conversation between two people which each turn the next person is talking. Given this query, you output in the format of 
+    '<result>Utterance i: image_description</result><reason>explanation_of_choice</reason>' where 'i' is the Utterance 
+    in the conversation and 'image_description' is the  short text description containing details of an image that can be followed by that Utterance
+    that can make the conversation more engaging. You should only identify the most appropriate utterances in the chat conversation. 
+    The text inside <reason>explanation_of_choice</reason> is the explanation of why you picked the utterance with the image description. 
+    If the utterance is empty like 'Utterance i: ' probably it is a place holder for image which was discussed in previous turns.
+    At most two images should be shared in the chat conversation. So, pick the best utterances for image support.
+
+
+exampler:
+  V1: 
+    - query: >
+        Utterance: 0: Y'all  Nature's bein super flirty today TrailRunning  BeKind  Buddies  NaturePhotography \n
+        Utterance: 1: Piggybacking on Reck's post. I walked along the river this afternoon. 
+        The bldgs on the hill overlooking the river are part of Ferry Farm, GW's boyhood home. 
+        The other house is in the downtown area. SmallTown \n Utterance: 2: Katie. This is great!! 
+        \n Utterance: 3: Thank you Reck! Your duck video was terrific.  Have a good night. Sleep well. 
+        Buddies
+      answer: >
+        <result>Utterance: 0: TrailRunning and nature photography
+        \n Utterance: 1: Ferry Farm building on the hill near the river in afternoon</result>
+        <reason>In Utterance 0, the person is talking about Nature and TrailRunning while
+        mentioning photography at the end so it makes sense to add image for this utterance.
+        For Utterance 2, the second person is affirming his post and talking about walking along the river
+        and buildings on the hill so a picture can make the conversation better. For utterances 3 and 4 they
+        are just end of conversation and they are thanking each other saying have a good night, and no image
+        is needed</reason>
+    - query: >
+        Utterance: 0: We\'re pushing, we\'re talking, a Samsung rep tells PCGamesN in regards to Microsoft
+        Xbox ultrawide support." \n Utterance: 1: Think BIGGER. XboxSeriesX \n Utterance: 2:
+        Thats gonna be my next tv, ano cell 8k :D
+      answer: >
+        <result>Utterance: 1: tv ano cell 8k</result><reason>In Utterence 0, the person is quoting
+        Samsung representative which does not need to have an image following it. Utterence 2 says "Thats gonna be my next tv",
+        which means he likes the image shared in the previous utterence 1, and he describes the image as tv ano cell 8k so
+        that is why the utterence 2 is followed by image with description "tv ano cell 8k". Utterence 3 does not need any image
+        since it is just describing the image shared by previous utterence</reason>
+    - query: >
+        Utterance: 0: It's a beautiful sunny Sunday here in Milan, Italy. Not too cold either photo \n
+        Utterance: 1: Have a great Sunday! It's a beautiful sunny Sunday here in Milan, Italy. Not too cold either photo
+        \n Utterance: 2: Thanks - you too!
+      answer: >
+        <result>Utterance: 0: beautiful sunny Sunday here in Milan, Italy. Not too cold \n
+        Utterance: 1: beautiful sunny Sunday here in Milan, Italy. Not too cold</result><reason>
+        Utterances 0 and 1 are talking about sunny Sunday here in Milan, Italy, so it makes sense to support
+        the utterances with image. Utterance 2 is just a thank you note so no image is needed.</reason>
+    - query: >
+        Utterance: 0: Working from home with a tie today! Plenty of Zoom in my life today! \n
+        Utterance: 1: I keep a polo handy that I throw on and off for zoom calls. Way to be extra fancy \n
+      answer: >
+        <result>Utterance: 0: Working from home with a tie \n</result><reason>
+        Utterance 0 discusses working from home with a tie which can be better supported with image. Utterances 1
+        is saying polo handy might be better option and no images is shared based on speaker preference</reason>
+    - query: >
+        Utterance: 0: So yeah, it was a mostly dismal year. But what's the best news you've read/saw/heard
+        in 2016? (Anything from the personal to world affairs.) \n Utterance: 1: grew 14 pumpkins on the formidable
+        strength of my chickens We are all proud! Here's one \n Utterance: 2: Very impressive!
+      answer: >
+        <result>Utterance: 1: 14 pumpkins</result><reason>
+        Utterance 0 is just a descrption of last year without any information that can be translated with image.
+        Utterance 1 on the other hand is talking about growing 14 pumpkins. This can be represented with image.
+        Utterance 2 is just a reaction. No image is needed as it does not add any further information.</reason>
+    - query: >
+        Utterance: 0: Hosannas in Excel sheets. Christmas \n Utterance: 1: " Hosannas in Excel sheets. 
+        Christmas Doh! \n Utterance: 2: It\'s always Calibri ...
+      answer: >
+        <result>Utterance: 0: Excel sheets\n Utterance: 1: Excel sheets</result><reason>
+        In Utterances 0 and 1 the speakers are talking about Excel sheet, so it makes sense to be supported
+        by excell sheet images. Utterance 2 does not seem to need any image support as it is obvious from context</reason>
+  V2: 
+    - query: >
+        Utterance: 0: Have you encountered any remarkable vistas during your time in Germany, and where were they located? #CitybreakGermany \n
+        Utterance: 1: A4 Enjoyed this stunning panorama in Berlin. :D #travel #CityBreakGermany \n
+      answer: >
+        <reason>In Utterance 0, it mentions a great view point in Germany so it makes sense to support the utterance with image. 
+        Same goes with Utterance 1 which mentions "Loved this view in Berlin". Cinematic style is added to both images to make the images more appealing.</reason>
+        <result>Utterance: 0: A panoramic view from Munich's Marienplatz, showcasing the Gothic New Town Hall and lively city square, encapsulates the city's vitality, 
+        marking it as a must-visit on any German city break. Cinematic style
+        \n Utterance: 1:A captivating view of Berlin's skyline featuring the iconic TV tower, mirrored in the vibrant Spree River, encapsulates the city's unique 
+        fusion of history and modernity. Cinematic style.</result>
+    - query: >
+        Utterance: 0: My attire for the SA Hip Hop Awards \n
+        Utterance: 1: Are you a supporter of Kaizer Chiefs?...lol. Gorgeous!! RT My attire for the SA Hip Hop Awards \n
+      answer: >
+        <reason>In Utterance 0, 1 contains the sentence "My outfit for the SA hip hop awards" which shows
+        the person is willing to share her outfit</reason>
+        <result>Utterance: 0: My outfit for the SA hip hop awards 
+        \n Utterance: 1: My outfit for the SA hip hop awards </result>
+    - query: >
+        Utterance: 0: Without question, my favorite photo of the month features the beast, the Broadspeed XJ Coupe. We showcased this car at our stand. Why don't you share your favorite Jaguar picture of 2019? \n
+        Utterance: 1: My absolute top picture of 2018 is Penelope at the courtyard exhibit at the Jaguar Summer Fest. Thanks for capturing this moment! #grateful \n
+        Utterance: 2: Oh my, now I recall! This is truly amusing! \n
+      answer: >
+        <reason>In Utterance 0, 1 contains the sentence describing the car display. The last utterance is a figure of speech which do 
+        not require image sharing. analog film style is added as both cars are old and analog film style makes the conversation more appealing.
+        Also the image description comes with "car is in the center" to make sure all parts of the car is shown</reason>
+        <result>Utterance: 0: Broadspeed XJ Coupe car. car is in the center. analog film style.
+        \n Utterance: 1: Penelope Jaguar car at the courtyard display at the Jaguar Summer Fest. car is in the center. analog film style.</result>
+    - query: >
+        Utterance: 0: Nature is being exceptionally charming today! #TrailRunning #BeKind #Buddies #NaturePhotography \n
+        Utterance: 1: Adding to what Reck posted, I took a stroll by the river this afternoon. The buildings on the hill overlooking 
+        the river belong to Ferry Farm, George Washington's childhood home. The other house is located in the downtown area. #SmallTown \n
+      answer: >
+        <reason>In Utterance 0, the person is talking about Nature and TrailRunning while
+        mentioning photography at the end so it makes sense to add image for this utterance. Utterance 1 is
+        also describing the scene so it makes sense to support it with real photographic style image</reason>
+        <result>Utterance: 0: A sun-dappled, verdant trail beckons runners, winding through trees in an ode to natural beauty. 
+        Two runners embody outdoor camaraderie and kindness in this scenic oasis. photographic style       \n Utterance: 1: On one side, the charming buildings of Ferry Farm sit nestled on a hill, peering over the rippling river, 
+        a testament to George Washington's boyhood. On the other, a quaint house sits in the heart of the downtown. photographic style</result>
+    - query: >
+        Utterance: 0: It's a wonderful sunny Sunday here in Milan, Italy. And it's not too chilly either! #photo \n
+        Utterance: 1: Enjoy your Sunday! It's a magnificent sunny Sunday here in Milan, Italy. Pleasantly warm too! #photo \n
+        Utterance: 2: Thanks - same to you! \n
+      answer: >
+        <reason>
+        Utterances 0 and 1 are talking about sunny Sunday here in Milan, Italy, so it makes sense to support
+        the utterances with image. Also, we add cinematic style at the end as the image should probably be impressive. Utterance 2 is just a thank you note so no image is needed. </reason>
+        <result>Utterance: 0: A panoramic view of Milan, with the Sforza Castle walls bathed in sunlight, as locals and tourists fill the quaint cafes and cobblestone streets, enjoying a typical sunny Sunday. 
+        cinematic style \n
+        Utterance: 1: A panoramic view of Milan, with the Sforza Castle walls bathed in sunlight, as locals and tourists fill the quaint cafes and cobblestone streets, enjoying a typical sunny Sunday. 
+        cinematic style</result>
+    - query: >
+        Utterance: 0: Sure, it was primarily a gloomy year. However, what's the most uplifting news you've come across in 2016? (Could be anything from personal matters to global events.) \n
+        Utterance: 1: Managed to cultivate 14 pumpkins on the formidable. \n  
+      answer: >
+        <reason>
+        Utterance 0 is just a descrption of last year without any information that can be translated with image. We add photographic style
+        as it is a personal sharing.
+        Utterance 1 on the other hand is talking about growing 14 pumpkins. This can be represented with image.</reason>
+        <result>Utterance: 1: 14 impressively large, bright orange pumpkins scattered around the field. photographic style</result>
+  V3: 
+    - query: >
+        Utterance: 0: Hi, how are you ? \n
+        Utterance: 1: i am great . Do you have animals in your farm? \n
+        Utterance: 2: horses on the farm and you \n
+        Utterance: 3: three dogs. \n
+        Utterance: 4: that is good. \n
+      answer: >
+        <reason>In Utterance 2, the speaker is describing a physical object or setting, Providing a visual of the horses could add depth to the conversation and help create a more engaging dialogue.
+        Utterance 3 although can be supported by image as it is describing dogs. utterance 1 does not need image as it is just a question.
+        Utterance 0 does not need any image as it is greeting. Utterance 1 does not need an image as it is question type sentence. Utterance 4
+        does not need image as it is a reaction to the previous utterance</reason>
+        <result>Utterance: 2: Two horses grazing in a green pasture, farm buildings in the background \n Utterance: 3: three dogs sitting on a couch</result>  
+    - query: >
+        Utterance: 0: i remember them ! \n
+        Utterance: 1: He was my favorite , along with new kids on the house . you ? \n
+        Utterance: 2: i love my dogs . \n
+        Utterance: 3: those are very good . \n
+        Utterance: 4: Yes, do you have pets ? \n
+        Utterance: 5: yes , we have two cats. \n
+      answer: >
+        <reason> utterance 2 is followed by a complement of the other speaker after saying "i love my dogs" so it appears that sharing image
+        has drawn the complement. utterance 5 is descriptive sentence for an answer to question if the subject has pets. So adding image of two cats make
+        conversation more interesting. Utterance 0 is just an agreement sentence which does not require image.
+        Utterance 1 is a question which does not require any image. utterance 3 is declarative sentence so no image is required. utterance 4 is  interrogative sentence 
+        so no image required. </reason>
+        <result>Utterance: 2:  Two dogs of different breeds playing in a garden. \n Utterance: 2: Two fluffy cats sitting on a windowsill, looking curiously at the camera. </result>
+    - query: >
+        Utterance: 0: is that the skiing? i enjoy it. \n
+        Utterance: 1: no . that is hockey which has sticks also \n
+        Utterance: 2: oh , yes . i wish i could learn that in school . \n
+        Utterance: 3: i live on a farm . we have no buses here. \n
+        Utterance: 4: oh wow . what kind of animals you have in farm? \n
+        Utterance: 5: No animals here, but we farm corn. \n
+        Utterance: 6: is your farm large? \n
+        Utterance: 7: yes, where do you live? \n
+      answer: >
+        <reason>Utterance 1 with image would help visualize the sport being discussed and provide a clear distinction from skiing, as per the conversation's context.
+        utterance 5 is also descriptive sentence that can be better supported by image to provide a visual representation of the kind of farming the speaker is involved in
+        utterance 0,4,6,7 are questions so no image needed. utterance 2 does not describe anything so no image needed</reason>
+        <result>Utterance: 1: Image of a hockey game in progress, showing players with hockey sticks. \n
+        Utterance: 5:  Image of a vast corn field, showing mature corn plants ready for harvest</result>
+    - query: >
+        Utterance: 0: Hi! \n
+        Utterance: 1: i love action movies ! I love tom cruise a lot \n
+        Utterance: 2: i like that as well. \n
+        Utterance: 3: do you do any volunteer at the food bank sometimes . \n
+        Utterance: 4: i donate sometimes \n
+        Utterance: 5: that is great ! ok , now another question what is your biggest fear ? \n
+        Utterance: 6: spiders . . . i  hate them \n
+      answer: >
+        <reason>utterance 1 talks about movie star tom cruise so an image can support it. Utterances 3,5 are questions so no image needed
+        Utterance 1,3 does not provide any description that can be supported by image. Utterance 0 is just a greeting so no image needed.
+        utternace 6 does not provide any description just a name of spider is not enough to be accompanied by image.</reason>
+        <result>Utterance: 1: image of Tom Cruise in action movie</result>
+    - query: >
+        Utterance: 0: do you have pets ? i have two dogs . golden retrievers. \n
+        Utterance: 1: I do horse ride. \n
+        Utterance: 2: Horses are hard to take care of. right? \n
+      answer: >
+        <reason>utterance 0 is describing that he has two dogs so an image can support it. Utterance 1 does not provide much information so no image needed.
+        utternace 2 is opinion based sentence so no image needed</reason>
+        <result>Utterance: 0: image of two golden retrievers</result>
+  V4:
+    - query: >
+        Utterance: 0: Which crypto project you are working on?
+        Utterance: 1: For the crypto market, including daily analysis, join our channel to receive all the relevant information.
+      answer: >
+        <reason>
+        Utterance 0 is a question, so no image needed. Utterance 1 seems like an advertisement for crypto channel, so an advertisement image can be used.
+        </reason><result>Utterance: 1: an advertisement poster for crypto market </result>
+    - query: >
+        Utterance: 0: Look at my fantastic house! It is great to live here
+        Utterance: 1: You look like you are sick.
+      answer: >
+        <reason>
+        Utterance 0 requires image, as it provides a visual representation of the fantastic house the speaker is proud of. By seeing the house, the conversation 
+        participants can better appreciate its beauty and understand why the speaker enjoys living. Utterace 1 does not need image 
+        as it is a question type utterance.
+        </reason><result>Utterance: 0: A high-quality photo of a magnificent house with a beautiful lawn and garden </result>
+    - query: >
+        Utterance: 0: Hi, what are you up to?
+        Utterance: 1: I am going to the beach today. Do you want to join me?
+        Utterance: 2: Giving a speech now to auudiace regarding new developement on climate change
+        Utterance: 3: Fantastic! we are so proud of you
+      answer: >
+        <reason>
+        utterance 1 is inviting a person to join him for beach. An image of the beach will give a visual representation of the activity being discussed in the first utterance.
+        Utterance 2 requires image as it can help others visualize the scene being described. It's especially beneficial here as it's a significant and presumably interesting event, so a visual can add weight to the words
+        utterance 0 is just greetings so no image needed. Utterance 3 is just a compliment so no image needed.
+        </reason><result>Utterance: 1: An image of a sunny beach with clear blue water, fluffy white clouds, and a beach umbrella set up on the sand \n
+        \n Utterance: 2: A photo of a person standing on a podium, delivering a speech to an audience on climate change</result>
+  V5: 
+    - query: >
+        Utterance: 0: Hi, how are you ? \n
+        Utterance: 1: i am great . Do you have animals in your farm? \n
+        Utterance: 2: horses on the farm and you \n
+        Utterance: 3: three dogs. \n
+        Utterance: 4: that is good. \n
+      answer: >
+        <reason>In Utterance 2, the speaker is describing a physical object or setting, Providing a visual of the horses could add depth to the conversation and help create a more engaging dialogue.
+        Utterance 3 although can be supported by image as it is describing dogs. utterance 1 does not need image as it is just a question.
+        Utterance 0 does not need any image as it is greeting. Utterance 1 does not need an image as it is question type sentence. Utterance 4
+        does not need image as it does not provide any description of image</reason>
+        <result>Utterance: 2: Two horses grazing in a green pasture, farm buildings in the background \n Utterance: 3: three dogs sitting on a couch</result>   
+    - query: >
+        Utterance: 0: i remember them ! \n
+        Utterance: 1: He was my favorite , along with new kids on the house . you ? \n
+        Utterance: 2: i love my dogs . \n
+        Utterance: 3: those are very good . \n
+        Utterance: 4: Yes, do you have pets ? \n
+        Utterance: 5: yes , we have two cats. \n
+      answer: >
+        <reason> utterance 2 is followed by a complement of the other speaker after saying "i love my dogs" so it appears that sharing image
+        has drawn the complement. utterance 5 is descriptive sentence for an answer to question if the subject has pets. So adding image of two cats make
+        conversation more interesting. Utterance 0 is just an agreement sentence which does not require image.
+        Utterance 1 is a question which does not require any image. utterance 3 does not require image as it is short response. utterance 4 is  question type sentence 
+        so no image required. </reason>
+        <result>Utterance: 2:  Two dogs of different breeds playing in a garden. \n Utterance: 5: Two fluffy cats sitting on a windowsill, looking curiously at the camera. </result>
+  V6: 
+    - query: >
+        Utterance: 0: Hi, how are you ? \n
+        Utterance: 1: i am great . Do you have animals in your farm? \n
+        Utterance: 2: horses on the farm and you \n
+        Utterance: 3: three dogs. \n
+        Utterance: 4: that is good. \n
+      answer: >
+        <result>Utterance: 2: Two horses grazing in a green pasture, farm buildings in the background \n Utterance: 3: three dogs sitting on a couch</result>  
+    - query: >
+        Utterance: 0: i remember them ! \n
+        Utterance: 1: He was my favorite , along with new kids on the house . you ? \n
+        Utterance: 2: i love my dogs . \n
+        Utterance: 3: those are very good . \n
+        Utterance: 4: Yes, do you have pets ? \n
+        Utterance: 5: yes , we have two cats. \n
+      answer: >
+        <result>Utterance: 2:  Two dogs of different breeds playing in a garden. \n Utterance: 2: Two fluffy cats sitting on a windowsill, looking curiously at the camera. </result>
+    - query: >
+        Utterance: 0: is that the skiing? i enjoy it. \n
+        Utterance: 1: no . that is hockey which has sticks also \n
+        Utterance: 2: oh , yes . i wish i could learn that in school . \n
+        Utterance: 3: i live on a farm . we have no buses here. \n
+        Utterance: 4: oh wow . what kind of animals you have in farm? \n
+        Utterance: 5: No animals here, but we farm corn. \n
+        Utterance: 6: is your farm large? \n
+        Utterance: 7: yes, where do you live? \n
+      answer: >
+        <result>Utterance: 1: Image of a hockey game in progress, showing players with hockey sticks. \n
+        Utterance: 5:  Image of a vast corn field, showing mature corn plants ready for harvest</result>
+    - query: >
+        Utterance: 0: Hi! \n
+        Utterance: 1: i love action movies ! I love tom cruise a lot \n
+        Utterance: 2: i like that as well. \n
+        Utterance: 3: do you do any volunteer at the food bank sometimes . \n
+        Utterance: 4: i donate sometimes \n
+        Utterance: 5: that is great ! ok , now another question what is your biggest fear ? \n
+        Utterance: 6: spiders . . . i  hate them \n
+      answer: >
+        <result>Utterance: 1: image of Tom Cruise in action movie</result>
+    - query: >
+        Utterance: 0: do you have pets ? i have two dogs . golden retrievers. \n
+        Utterance: 1: I do horse ride. \n
+        Utterance: 2: Horses are hard to take care of. right? \n
+      answer: >
+        <result>Utterance: 0: image of two golden retrievers</result>   
+    - query: >
+        Utterance: 0: is that the skiing? i enjoy it. \n
+        Utterance: 1: no . that is hockey which has sticks also \n
+        Utterance: 2: oh , yes . i wish i could learn that in school . \n
+        Utterance: 3: i live on a farm . we have no buses here. \n
+        Utterance: 4: oh wow . what kind of animals you have in farm? \n
+        Utterance: 5: No animals here, but we farm corn. \n
+        Utterance: 6: is your farm large? \n
+        Utterance: 7: yes, where do you live? \n
+      answer: >
+        <reason>Utterance 1 with image would help visualize the sport being discussed and provide a clear distinction from skiing, as per the conversation's context.
+        utterance 5 is also descriptive sentence that can be better supported by image to provide a visual representation of the kind of farming the speaker is involved in
+        utterance 0,4,6,7 are questions so no image needed. utterance 2 does not describe anything so no image needed</reason>
+        <result>Utterance: 1: Image of a hockey game in progress, showing players with hockey sticks. \n
+        Utterance: 5:  Image of a vast corn field, showing mature corn plants ready for harvest</result>
+    - query: >
+        Utterance: 0: Hi! \n
+        Utterance: 1: i love action movies ! I love tom cruise a lot \n
+        Utterance: 2: i like that as well. \n
+        Utterance: 3: do you do any volunteer at the food bank sometimes . \n
+        Utterance: 4: i donate sometimes \n
+        Utterance: 5: that is great ! ok , now another question what is your biggest fear ? \n
+        Utterance: 6: spiders . . . i  hate them \n
+      answer: >
+        <result>Utterance: 1: image of Tom Cruise in action movie</result>
+    - query: >
+        Utterance: 0: do you have pets ? i have two dogs . golden retrievers. \n
+        Utterance: 1: I do horse ride. \n
+        Utterance: 2: Horses are hard to take care of. right? \n
+      answer: >
+        <result>Utterance: 0: image of two golden retrievers</result>
+    - query: >
+        Utterance: 0: Hi \n
+        Utterance: 1: Did you attend the party? \n
+        Utterance: 2: No, I did not \n
+        Utterance: 3: Let me send you the pictures. \n
+        Utterance: 4: Wow that looks amazing! \n
+      answer: >
+        <result>Utterance: 3: party full of people dancing, photographic realistic style</result>
+    - query: >
+        Utterance: 0: what are you doing friend  \n
+        Utterance: 1: I am having a nice pizza  \n
+        Utterance: 2: ok good. Nice cook.  \n
+        Utterance: 3: How about you?  Here is the photo  \n
+        Utterance: 4: Yes i got  \n
+        Utterance: 5: Does it look nice  \n
+        Utterance: 6: I like pizza very like.  \n
+        Utterance: 7: That sounds great  \n
+      answer: >
+        <result>Utterance: 6: wedding image with man standing besides the bride</result>
+    - query: >
+        Utterance: 0: Hi, \n
+        Utterance: 1: Hello, \n
+        Utterance: 2: How was your weekend? \n
+        Utterance: 3: We went to a beach close to farm \n
+        Utterance: 4: Nice \n
+        Utterance: 5: Want to see a photo of it? \n
+        Utterance: 6: Sure \n
+        Utterance: 7: " " \n
+      answer: >
+        <result>Utterance: 7: photo of a beach near farm</result>

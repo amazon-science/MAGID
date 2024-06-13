@@ -1,0 +1,13 @@
+boto3==1.26.153
+diffusers==0.17.1
+langchain==0.0.207
+matplotlib==3.7.0
+numpy==1.23.5
+openai==0.27.8
+pandas==1.5.3
+Pillow==9.5.0
+PyYAML==6.0
+scikit_learn==1.2.1
+seaborn==0.12.2
+torch==2.0.1
+transformers==4.24.0
